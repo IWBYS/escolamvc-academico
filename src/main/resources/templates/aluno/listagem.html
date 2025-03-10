@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista</title>
+    <div th:replace="fragments/config :: config"></div>
+</head>
+<body>
+<div th:replace="fragments/header :: cabecalho"></div>
+<div th:replace="fragments/cad.surch.aluno.html :: surch"></div>
+<div class="container">
+<h1>Listagem de alunos</h1>
+    <table div class="table table-striped">
+        <thead>
+        <tr class="tr1">
+            <th>Id</th>
+            <th>Matricula</th>
+            <th>Cpf</th>
+            <th>Nome</th>
+            <th>Email</th><!-- Nova coluna de Função -->
+        </tr>
+        </thead>
+        <tbody>
+<tr th:if="${alunos.empty}">
+    <td colspan="2">Sem Alunos</td>
+</tr>
+<tr th:each="aluno : ${alunos}">
+    <td><span th:text="${aluno.id}"> Id </span></td>
+    <td><span th:text="${aluno.matricula}"> Matrícula </span></td>
+    <td><span th:text="${aluno.cpf}"> Email </span></td>
+    <td><span th:text="${aluno.nome}"> Nome </span></td>
+    <td><span th:text="${aluno.email}"> Email </span></td>
+    <td>
+        <a class="btn btn-outline-danger btn-sm"
+           th:href="@{/aluno/excluir/{id}(id=${aluno.id})}"
+           th:data-confirm-delete="|Você gostaria de apagar ${aluno.nome}?|"
+           onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false" >
+            Apagar
+        </a>
+
+        <a class="btn btn-outline-primary btn-sm"
+           th:href="@{/aluno/alterar/{id}(id=${aluno.id})}">Editar
+        </a>
+
+    </td>
+</tr>
+        </tbody>
+</table>
+</div>
+<div th:replace="fragments/footer:: footer"></div>
+</body>
+</html>
